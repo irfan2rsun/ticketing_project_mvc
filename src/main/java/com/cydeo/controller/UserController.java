@@ -38,18 +38,11 @@ public class UserController {
 
 
     @PostMapping("/create")
-    //Upon form submission, it receives the submitted UserDTO object as a parameter annotated with @ModelAttribute.
-    public String insertUser(@ModelAttribute("user") UserDTO user, Model model){
-
-
-        model.addAttribute("user",new UserDTO());
-        model.addAttribute("roles",roleService.findAll());
+    public String insertUser(@ModelAttribute("user") UserDTO user){
 
         userService.save(user);
 
-        model.addAttribute("users",userService.findAll());
-
-        return "/user/create";
+        return "redirect:/user/create";
 
     }
 

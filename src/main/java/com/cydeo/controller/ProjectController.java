@@ -1,6 +1,7 @@
 package com.cydeo.controller;
 
 import com.cydeo.dto.ProjectDTO;
+import com.cydeo.dto.UserDTO;
 import com.cydeo.enums.Status;
 import com.cydeo.service.ProjectService;
 import com.cydeo.service.UserService;
@@ -21,20 +22,19 @@ public class ProjectController {
     }
 
     @GetMapping("/create")
-    public String createProject(Model model){
+    public String createProject(Model model) {
 
-        model.addAttribute("project",new ProjectDTO());
+        model.addAttribute("project", new ProjectDTO());
 
-        model.addAttribute("managers",userService.findManagers());
+        model.addAttribute("managers", userService.findManagers());
 
-        model.addAttribute("projects",projectService.findAll());
+        model.addAttribute("projects", projectService.findAll());
 
         return "/project/create";
     }
 
     @PostMapping("/create")
-    public String insertProject(@ModelAttribute("project") ProjectDTO project){
-
+    public String insertProject(@ModelAttribute("project") ProjectDTO project) {
 
 
         projectService.save(project);
@@ -43,7 +43,7 @@ public class ProjectController {
     }
 
     @GetMapping("/delete/{projectCode}")
-    public String deleteProject(@PathVariable("projectCode") String projectCode){
+    public String deleteProject(@PathVariable("projectCode") String projectCode) {
 
         projectService.deleteById(projectCode);
 
@@ -58,4 +58,24 @@ public class ProjectController {
 
         return "redirect:/project/create";
     }
+
+    @GetMapping("/update/{projectCode}")
+    public String editProject(@PathVariable("projectCode") String projectCode, Model model){
+
+        model.addAttribute("project",projectService.findById(projectCode));
+        model.addAttribute("managers",userService.findManagers());
+        model.addAttribute("projects",projectService.findAll());
+
+        return "/project/update";
+    }
+
+    @PostMapping("/update")
+    public String updateProject(@ModelAttribute("project") ProjectDTO project){
+
+        projectService.update(project);
+
+        return "redirect:/project/create";
+    }
+
+
 }

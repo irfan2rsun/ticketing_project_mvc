@@ -10,7 +10,7 @@ import java.util.List;
 public class TaskServiceImpl extends AbstractMapService<TaskDTO,Long> implements TaskService {
     @Override
     public TaskDTO save(TaskDTO task) {
-        return super.save(task.getId(), task);
+        return super.save(task.getId(),task);
     }
 
     @Override

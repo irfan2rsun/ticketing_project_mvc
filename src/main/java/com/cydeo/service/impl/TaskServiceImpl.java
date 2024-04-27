@@ -19,6 +19,7 @@ public class TaskServiceImpl extends AbstractMapService<TaskDTO,Long> implements
         if(task.getAssignedDate() == null)
             task.setAssignedDate(LocalDate.now());
 
+
         if(task.getId()==null)
             task.setId(UUID.randomUUID().getMostSignificantBits());
 
